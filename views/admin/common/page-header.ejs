@@ -1,0 +1,39 @@
+<div class="page-bar">
+	<!-- <ul class="page-breadcrumb">
+		<li>
+			<i class="fa fa-home"></i>
+			<a href="/admin">Home</a>
+			<i class="fa fa-angle-right"></i>
+		</li>
+		<li>
+			<a href="#">title</a>
+		</li>
+	</ul> -->
+</div>
+<h3 class="page-title">
+	<%-title-%> 
+	<% if(title == "Media Library") { %>
+	<button type="button" class="btn btn-info btn-xs" id="btnAddNewMedia">Add New</button>
+	<% } %>
+	<% if(title == "All Posts") { %>
+	<a  class="btn btn-info btn-xs" href="posts/add">Add New</a>
+	<% } %>
+
+</h3>
+<% if(title == "Media Library") { %>
+	<div id="form-upload" class="form-upload" style="display: none;">
+		<form action="" method="POST" role="form">
+			<div class="form-group">
+				<h1>Drop files anywhere to upload</h1>
+				<small>or</small>
+				<div class="formx2">
+					<input type="file" class="form-control" id="ip-upload" placeholder="Input field">
+					<button id="btnSelectFile" type="button" class="btn btn-default">Select File</button>
+				</div>
+			</div>
+		</form>
+		<i class="fa fa-times" id="icon-close"></i>
+		<small>Maximum upload file size: 5 MB.</small>
+	</div>
+	</script>
+<% } %>

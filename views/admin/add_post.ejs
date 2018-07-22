@@ -1,0 +1,129 @@
+<% extend('./layouts/application', title) %>
+<!-- BEGIN HEADER -->
+<%- include('./common/top-header') -%>
+<!-- END HEADER -->
+<div class="clearfix">
+</div>
+<!-- BEGIN CONTAINER -->
+<div class="page-container">
+	<!-- BEGIN SIDEBAR -->
+	<%- include('./common/sidebar-left') -%>
+	<!-- END SIDEBAR -->
+	<!-- BEGIN CONTENT -->
+	<div class="page-content-wrapper">
+		<div class="page-content">
+			<!-- BEGIN SAMPLE PORTLET CONFIGURATION MODAL FORM-->
+			<div class="modal fade" id="portlet-config" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+							<h4 class="modal-title">Modal title</h4>
+						</div>
+						<div class="modal-body">
+							 Widget settings form goes here
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn blue">Save changes</button>
+							<button type="button" class="btn default" data-dismiss="modal">Close</button>
+						</div>
+					</div>
+					<!-- /.modal-content -->
+				</div>
+				<!-- /.modal-dialog -->
+			</div>
+			<!-- /.modal -->
+			<!-- END SAMPLE PORTLET CONFIGURATION MODAL FORM-->
+			<!-- BEGIN PAGE HEADER-->
+			<%- include('./common/page-header') -%>
+			<!-- END PAGE HEADER-->
+			<!-- BEGIN PAGE CONTENT-->
+
+			<div class="row">
+				<div class="col-md-12">
+					<!-- BEGIN VALIDATION STATES-->
+					<form action="" method="POST" role="form" class="form-body">
+						<div class="add-post-left col-sm-9">
+							
+							<div class="alert alert-danger display-hide">
+								<button class="close" data-close="alert"></button>
+								You have some form errors. Please check below.
+							</div>
+							<div class="alert alert-success display-hide">
+								<button class="close" data-close="alert"></button>
+								Your form validation is successful!
+							</div>
+							<div class="form-group">
+								<label class="control-label sr-only">Title</label>
+								<input type="text" name="title" data-required="1" class="form-control" placeholder="Enter title here" />
+							</div>
+							<div class="form-group last">
+								<textarea class="wysihtml5 form-control" rows="20" name="content" data-error-container="#editor1_error"></textarea>
+								<div id="editor1_error">
+								</div>
+							</div>							
+						</div>
+						<div class="add-post-left col-sm-3">
+							<div class="panel panel-info">
+								<div class="panel-heading">
+									<h3 class="panel-title">Publish</h3>
+								</div>
+								<div class="panel-body">
+									<select class="form-control select2me sl-post-cat" name="category">
+										<option value="0">Select category...</option>
+										<option value="1">Category 1</option>
+										<option value="2">Category 2</option>
+										<option value="3">Category 3</option>
+										<option value="4">Category 4</option>
+									</select>
+									<select class="form-control select2me" name="status">
+										<option value="0">Post status...</option>
+										<option value="publish">Publish</option>
+										<option value="hide">Hide</option>
+										<option value="pending">Pending</option>
+									</select>
+								</div>
+							</div>
+							<div class="panel panel-info">
+								<div class="panel-heading">
+									<h3 class="panel-title">Featured Image</h3>
+								</div>
+								<div class="panel-body">
+									<a id="set-featured-image" class="" data-toggle="modal" href='#modal-id'>Set featured image</a>
+									<div class="modal fade" id="modal-id">
+										<div class="modal-dialog">
+											<div class="modal-content">
+												<div class="modal-header">
+													<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+													<h4 class="modal-title">Modal title</h4>
+												</div>
+												<div class="modal-body">
+													
+												</div>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+													<button type="button" class="btn btn-primary">Save changes</button>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<button id="btnPostAdd" type="submit" class="btn btn-info" name="">Publish</button>
+						</div>
+					</form>
+				</div>
+			</div>
+			<!-- END PAGE CONTENT-->
+		</div>
+	</div>
+	<!-- END CONTENT -->
+	<!-- BEGIN QUICK SIDEBAR -->
+	<a href="javascript:;" class="page-quick-sidebar-toggler"><i class="icon-close"></i></a>
+	<%- include('./common/quick-sidebar') -%>
+	<!-- END QUICK SIDEBAR -->
+</div>
+<!-- END CONTAINER -->
+<!-- BEGIN FOOTER -->
+<%- include('./common/page-footer') -%>
+<!-- END FOOTER -->

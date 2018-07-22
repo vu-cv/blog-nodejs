@@ -1,0 +1,99 @@
+<% extend('./layouts/application', title) %>
+<!-- BEGIN HEADER -->
+<%- include('./common/top-header') -%>
+<!-- END HEADER -->
+<div class="clearfix">
+</div>
+<!-- BEGIN CONTAINER -->
+<div class="page-container">
+	<!-- BEGIN SIDEBAR -->
+	<%- include('./common/sidebar-left') -%>
+	<!-- END SIDEBAR -->
+	<!-- BEGIN CONTENT -->
+	<div class="page-content-wrapper">
+		<div class="page-content">
+			<!-- BEGIN SAMPLE PORTLET CONFIGURATION MODAL FORM-->
+			<div class="modal fade" id="portlet-config" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+							<h4 class="modal-title">Modal title</h4>
+						</div>
+						<div class="modal-body">
+							 Widget settings form goes here
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn blue">Save changes</button>
+							<button type="button" class="btn default" data-dismiss="modal">Close</button>
+						</div>
+					</div>
+					<!-- /.modal-content -->
+				</div>
+				<!-- /.modal-dialog -->
+			</div>
+			<!-- /.modal -->
+			<!-- END SAMPLE PORTLET CONFIGURATION MODAL FORM-->
+			<!-- BEGIN PAGE HEADER-->
+			<%- include('./common/page-header') -%>
+			<!-- END PAGE HEADER-->
+			<!-- BEGIN DASHBOARD STATS -->
+			<div class="row" id="rowImageMedia">
+				<% data.forEach((x, index) => {%>
+				<div class="col-sm-2 pd-bt-20">
+					<img src="<%= x.path %>" class="img-responsive image-media" data-toggle="modal" href="#full<%= index %>">
+					<!-- /.modal -->
+					<div class="modal fade" id="full<%= index %>" tabindex="-1" role="dialog" aria-hidden="true">
+						<div class="modal-dialog modal-full">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+									<h4 class="modal-title">Attachment Details</h4>
+								</div>
+								<div class="modal-body">
+									 <div class="row">
+									 	<div class="col-sm-8 text-center">
+									 		<img src="<%= x.path %>" class="image-modal">
+									 	</div>
+									 	<div class="col-sm-4">
+									 		<div><strong>File name: </strong><%= x.name%></div>
+									 		<div><strong>File type: </strong>image/jpeg</div>
+									 		<div><strong>File size: </strong><%= (x.size/1024).toFixed(1);%> KB</div>
+									 		<hr>
+									 		<div>
+									 			<strong>Url: </strong>
+									 			<a class="word-wrap" href="<%= x.path %>" target="_blank"><%= hostName + x.path %></a>
+									 		</div>
+									 		<div>
+									 			<strong>Uploaded By: </strong>Chu Vụ
+									 		</div>
+									 		<hr>
+									 		<a href="/admin/media/<%= x._id %>/delete" onclick="return confirm('Delete Permanently?\nThis action cannot undo.\n\'OK\' to delete, \'Cancel\' to stop.')" id="del-media">Delete Permanently</a>
+
+									 	</div>
+									 </div>
+								</div>
+
+							</div>
+							<!-- /.modal-content -->
+						</div>
+						<!-- /.modal-dialog -->
+					</div>
+					<!-- /.modal -->
+				</div>
+				<% }); %>
+			</div>
+			
+
+		</div>
+	</div>
+	<!-- END CONTENT -->
+	<!-- BEGIN QUICK SIDEBAR -->
+	<a href="javascript:;" class="page-quick-sidebar-toggler"><i class="icon-close"></i></a>
+	<%- include('./common/quick-sidebar') -%>
+	<!-- END QUICK SIDEBAR -->
+</div>
+<!-- END CONTAINER -->
+<!-- BEGIN FOOTER -->
+<%- include('./common/page-footer') -%>
+<!-- END FOOTER -->

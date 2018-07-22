@@ -1,0 +1,107 @@
+<% extend('./layouts/application', title) %>
+
+
+<!-- BEGIN HEADER -->
+<%- include('./common/top-header') -%>
+<!-- END HEADER -->
+<div class="clearfix">
+</div>
+<!-- BEGIN CONTAINER -->
+<div class="page-container">
+	<!-- BEGIN SIDEBAR -->
+	<%- include('./common/sidebar-left') -%>
+	<!-- END SIDEBAR -->
+	<!-- BEGIN CONTENT -->
+	<div class="page-content-wrapper">
+		<div class="page-content">
+			<!-- BEGIN SAMPLE PORTLET CONFIGURATION MODAL FORM-->
+			<div class="modal fade" id="portlet-config" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+							<h4 class="modal-title">Modal title</h4>
+						</div>
+						<div class="modal-body">
+							 Widget settings form goes here
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn blue">Save changes</button>
+							<button type="button" class="btn default" data-dismiss="modal">Close</button>
+						</div>
+					</div>
+					<!-- /.modal-content -->
+				</div>
+				<!-- /.modal-dialog -->
+			</div>
+			<!-- /.modal -->
+			<!-- END SAMPLE PORTLET CONFIGURATION MODAL FORM-->
+			<!-- BEGIN PAGE HEADER-->
+			<%- include('./common/page-header') -%>
+			<!-- END PAGE HEADER-->
+			<!-- BEGIN PAGE CONTENT-->
+			<div class="row">
+				<div class="col-md-12">
+					<!-- BEGIN EXAMPLE TABLE PORTLET-->
+					<div class="portlet box green-haze">
+						<div class="portlet-title">
+							<div class="caption">
+								<i class="fa fa-globe"></i>Datatable with TableTools
+							</div>
+							<div class="tools">
+								<a href="javascript:;" class="reload">
+								</a>
+								<a href="javascript:;" class="remove">
+								</a>
+							</div>
+						</div>
+						<div class="portlet-body">
+							<table class="table table-striped table-bordered table-hover" id="sample_2">
+							<thead>
+								<tr>
+									<th>#</th>
+									<th>Title</th>
+									<th>Author</th>
+									<th>Category</th>								
+									<th>Status</th>
+									<th>Date</th>
+									<th>Action</th>
+								</tr>
+							</thead>
+							<tbody>
+								<% data.forEach((x, index) => {%>
+								<tr>
+									<td><%= index+1 %></td>
+									<td><%= x.post_title %></td>
+									<td><%= x.post_author %></td>
+									<td><%= "..." %></td>
+									<td><%= x.post_status %></td>
+									<td><%= x.post_date.toLocaleString(); %></td>
+									<td>
+										<a href="/admin/posts/<%= x._id %>/edit" class="btn btn-info btn-xs">Edit</a>
+										<a href="" class="btn btn-danger btn-xs">Delete</a>
+									</td>
+								</tr>
+								<% }) %>
+							
+							</tbody>
+							</table>
+						</div>
+					</div>
+					<!-- END EXAMPLE TABLE PORTLET-->
+				</div>
+			</div>
+			<!-- END PAGE CONTENT-->
+		</div>
+	</div>
+	<!-- END CONTENT -->
+	<!-- BEGIN QUICK SIDEBAR -->
+	<a href="javascript:;" class="page-quick-sidebar-toggler"><i class="icon-close"></i></a>
+	<%- include('./common/quick-sidebar') -%>
+	<!-- END QUICK SIDEBAR -->
+</div>
+<!-- END CONTAINER -->
+<!-- BEGIN FOOTER -->
+<%- include('./common/page-footer') -%>
+<!-- END FOOTER -->
+

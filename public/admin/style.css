@@ -1,0 +1,78 @@
+#btnPostAdd {
+	width: 100%;
+}
+#set-featured-image {
+	text-decoration: underline;
+}
+
+.sl-post-cat {
+	margin-bottom: 20px;
+}
+.form-upload {
+    border: 3px dashed #00000036;
+    text-align: center;
+    margin: 20px 0;
+    padding: 40px 0px;
+    position: relative;
+}
+
+
+.formx2 {
+	position: relative;
+    height: 30px;
+}
+.formx2 button {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+}
+.formx2 input {
+	position: absolute;
+	opacity: 0;
+	z-index: 2;
+    visibility: hidden;
+}
+.formx2 input:hover {
+	cursor: pointer;
+}
+i#icon-close {
+    position: absolute;
+    z-index: 10;
+    right: 5px;
+    top: 5px;
+    font-size: 25px;
+    cursor: pointer;
+    color: #00000036;
+}
+
+.pd-bt-20 {
+    padding-bottom: 20px;
+    min-height: 184px;
+}
+
+.image-media {
+    cursor: pointer;
+    max-height: 154px;
+    margin: 0 auto;
+}
+
+
+.bg-custom {
+    background: #F1F3FA;
+    /*height: -webkit-fill-available;*/
+}
+
+.image-modal {
+    height: 80vh;
+    max-width: 80%;
+}
+
+#del-media {
+    color: red;
+}
+
+.word-wrap {
+    word-wrap: break-word;
+}
