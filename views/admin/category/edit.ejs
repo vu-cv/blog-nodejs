@@ -1,13 +1,13 @@
-<% extend('./layouts/application', title) %>
+<% extend('../layouts/application', title) %>
 <!-- BEGIN HEADER -->
-<%- include('./common/top-header') -%>
+<%- include('../common/top-header') -%>
 <!-- END HEADER -->
 <div class="clearfix">
 </div>
 <!-- BEGIN CONTAINER -->
 <div class="page-container">
 	<!-- BEGIN SIDEBAR -->
-	<%- include('./common/sidebar-left') -%>
+	<%- include('../common/sidebar-left') -%>
 	<!-- END SIDEBAR -->
 	<!-- BEGIN CONTENT -->
 	<div class="page-content-wrapper">
@@ -35,7 +35,7 @@
 			<!-- /.modal -->
 			<!-- END SAMPLE PORTLET CONFIGURATION MODAL FORM-->
 			<!-- BEGIN PAGE HEADER-->
-			<%- include('./common/page-header') -%>
+			<%- include('../common/page-header') -%>
 			<!-- END PAGE HEADER-->
 			<!-- BEGIN PAGE CONTENT-->
 
@@ -55,10 +55,10 @@
 							</div>
 							<div class="form-group">
 								<label class="control-label sr-only">Title</label>
-								<input type="text" name="title" data-required="1" class="form-control" placeholder="Enter title here" />
+								<input value="<%= data.post_title%>" type="text" name="title" data-required="1" class="form-control" placeholder="Enter title here" />
 							</div>
 							<div class="form-group last">
-								<textarea class="wysihtml5 form-control" rows="20" name="content" data-error-container="#editor1_error"></textarea>
+								<textarea class="wysihtml5 form-control" rows="20" name="content" data-error-container="#editor1_error"><%= data.post_content%></textarea>
 								<div id="editor1_error">
 								</div>
 							</div>							
@@ -69,19 +69,38 @@
 									<h3 class="panel-title">Publish</h3>
 								</div>
 								<div class="panel-body">
+
 									<select class="form-control select2me sl-post-cat" name="category">
-										<option value="0">Select category...</option>
-										<option value="1">Category 1</option>
-										<option value="2">Category 2</option>
-										<option value="3">Category 3</option>
-										<option value="4">Category 4</option>
+										<option class="op-cat" value="0">Select category...</option>
+										<option class="op-cat" value="1">Option 1</option>
+										<option class="op-cat" value="2">Option 2</option>
+										<option class="op-cat" value="3">Option 3</option>
+										<option class="op-cat" value="4">Option 4</option>
 									</select>
+									<script type="text/javascript">
+										var x = document.querySelectorAll(".op-cat");
+										// x[1].setAttribute('selected', 'true');
+										x.forEach((o, index) => {
+											if (x[index].value == "<%= data.post_category %>") {
+												x[index].setAttribute('selected', 'true');
+											}
+										})
+									</script>
 									<select class="form-control select2me" name="status">
-										<option value="0">Post status...</option>
-										<option value="publish">Publish</option>
-										<option value="hide">Hide</option>
-										<option value="pending">Pending</option>
+										<option class="op-status" value="0">Post status...</option>
+										<option class="op-status" value="publish">Publish</option>
+										<option class="op-status" value="hide">Hide</option>
+										<option class="op-status" value="pending">Pending</option>
 									</select>
+									<script type="text/javascript">
+										var stt = document.querySelectorAll(".op-status");
+										console.log(stt);
+										stt.forEach((st, index) => {
+											if (stt[index].value == "<%= data.post_status %>") {
+												stt[index].setAttribute('selected', 'true');
+											}
+										})
+									</script>
 								</div>
 							</div>
 							<div class="panel panel-info">
@@ -109,7 +128,7 @@
 									</div>
 								</div>
 							</div>
-							<button id="btnPostAdd" type="submit" class="btn btn-info" name="">Publish</button>
+							<button id="btnPostAdd" type="submit" class="btn btn-info" name="btnPostAdd">Update</button>
 						</div>
 					</form>
 				</div>
@@ -120,10 +139,10 @@
 	<!-- END CONTENT -->
 	<!-- BEGIN QUICK SIDEBAR -->
 	<a href="javascript:;" class="page-quick-sidebar-toggler"><i class="icon-close"></i></a>
-	<%- include('./common/quick-sidebar') -%>
+	<%- include('../common/quick-sidebar') -%>
 	<!-- END QUICK SIDEBAR -->
 </div>
 <!-- END CONTAINER -->
 <!-- BEGIN FOOTER -->
-<%- include('./common/page-footer') -%>
+<%- include('../common/page-footer') -%>
 <!-- END FOOTER -->

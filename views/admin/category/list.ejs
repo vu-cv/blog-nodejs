@@ -1,15 +1,15 @@
-<% extend('./layouts/application', title) %>
+<% extend('../layouts/application', title) %>
 
 
 <!-- BEGIN HEADER -->
-<%- include('./common/top-header') -%>
+<%- include('../common/top-header') -%>
 <!-- END HEADER -->
 <div class="clearfix">
 </div>
 <!-- BEGIN CONTAINER -->
 <div class="page-container">
 	<!-- BEGIN SIDEBAR -->
-	<%- include('./common/sidebar-left') -%>
+	<%- include('../common/sidebar-left') -%>
 	<!-- END SIDEBAR -->
 	<!-- BEGIN CONTENT -->
 	<div class="page-content-wrapper">
@@ -37,7 +37,7 @@
 			<!-- /.modal -->
 			<!-- END SAMPLE PORTLET CONFIGURATION MODAL FORM-->
 			<!-- BEGIN PAGE HEADER-->
-			<%- include('./common/page-header') -%>
+			<%- include('../common/page-header') -%>
 			<!-- END PAGE HEADER-->
 			<!-- BEGIN PAGE CONTENT-->
 			<div class="row">
@@ -51,8 +51,8 @@
 							<div class="tools">
 								<a href="javascript:;" class="reload">
 								</a>
-								<a href="javascript:;" class="remove">
-								</a>
+								<!-- <a href="javascript:;" class="remove">
+								</a> -->
 							</div>
 						</div>
 						<div class="portlet-body">
@@ -69,20 +69,20 @@
 								</tr>
 							</thead>
 							<tbody>
-								<% data.forEach((x, index) => {%>
+								<% //data.forEach((x, index) => {%>
 								<tr>
-									<td><%= index+1 %></td>
-									<td><%= x.post_title %></td>
-									<td><%= x.post_author %></td>
+									<td><%= "index+1" %></td>
+									<td><%= "x.post_title" %></td>
+									<td><%= "x.post_author" %></td>
 									<td><%= "..." %></td>
-									<td><%= x.post_status %></td>
-									<td><%= x.post_date.toLocaleString(); %></td>
+									<td><%= "x.post_status" %></td>
+									<td><%= "x.post_date.toLocaleString();" %></td>
 									<td>
-										<a href="/admin/posts/<%= x._id %>/edit" class="btn btn-info btn-xs">Edit</a>
+										<a href="/admin/posts/<%= //x._id %>/edit" class="btn btn-info btn-xs">Edit</a>
 										<a href="" class="btn btn-danger btn-xs">Delete</a>
 									</td>
 								</tr>
-								<% }) %>
+								<% //}) %>
 							
 							</tbody>
 							</table>
@@ -97,11 +97,11 @@
 	<!-- END CONTENT -->
 	<!-- BEGIN QUICK SIDEBAR -->
 	<a href="javascript:;" class="page-quick-sidebar-toggler"><i class="icon-close"></i></a>
-	<%- include('./common/quick-sidebar') -%>
+	<%- include('../common/quick-sidebar') -%>
 	<!-- END QUICK SIDEBAR -->
 </div>
 <!-- END CONTAINER -->
 <!-- BEGIN FOOTER -->
-<%- include('./common/page-footer') -%>
+<%- include('../common/page-footer') -%>
 <!-- END FOOTER -->
 

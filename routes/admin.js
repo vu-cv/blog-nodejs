@@ -2,20 +2,28 @@ var router = require('express').Router();
 var menu = require('../settings/menu');
 
 router.get('/', (req, res) => {
-	res.render('admin/index', {title: "Dashboard", menu: menu});
+	if (req.isAuthenticated()) {
+		res.render('admin/index', {title: "Dashboard", menu: menu});
+	} else {
+		res.writeHead(302, { 
+		  'Location': '/login'
+		});
+		res.end();
+	}
 });
 
 /*********** POST ROUTE ***********/
 router.get('/posts', (req, res) => {
 	var PostController = require('../controllers/admin/PostController');
-	PostController.getAll.then(row => {
+	PostController.getAll().then(row => {
 		// console.log(row);
-		res.render('admin/all_post', {title: "All Posts", menu: menu, data: row});
+		res.render('admin/post/list', {title: "All Posts", menu: menu, data: row});
 	});
+	// console.log("dm");
 });
 
 router.get('/posts/add', (req, res) => {
-	res.render('admin/add_post', {title: "Add New Post", menu: menu});
+	res.render('admin/post/add', {title: "Add New Post", menu: menu});
 });
 router.post('/posts/add', (req, res) => {
 	var PostController = require('../controllers/admin/PostController');
@@ -44,10 +52,15 @@ router.get('/posts/:id/edit', (req, res) => {
 	// PostController.getById(id);
 	PostController.getById(id).then(row => {
 		console.log(row);
-		res.render('admin/edit_post', {title: "Edit Posts", menu: menu, data: row});
+		res.render('admin/post/edit', {title: "Edit Posts", menu: menu, data: row});
 	});
 });
 
+
+/*********** CATEGORY ROUTE ***********/
+router.get('/posts/category', (req, res) => {
+	res.render('admin/category/list', {title: "Categories", menu: menu});
+});
 
 
 /*********** COMMENT ROUTE ***********/
@@ -85,6 +98,8 @@ router.get('/media/:id/delete', (req, res) => {
 	});
 	res.end();
 });
+
+/*********** USER ROUTE ***********/
 
 
 module.exports = router;

@@ -16,7 +16,7 @@ var MediaModel = {
 		return result;
 	},
 
-	insert: myobj => {
+	update: myobj => {
 		var db = require('./connect_db.js');
 		var dbo = db.getDb().db('blog');
 		dbo.collection("media").insertOne(myobj, function(err, res) {
@@ -24,7 +24,7 @@ var MediaModel = {
 		    console.log("1 document inserted");
 	  	});
 	},
-	destroy: id => {
+	delete: id => {
 		var db = require('./connect_db.js');
 		var dbo = db.getDb().db('blog');
 

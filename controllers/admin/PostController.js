@@ -1,7 +1,7 @@
 const db = require('../../models/admin/PostModel');
 
 var PostController = {
-	getAll: db.getAll(),
+	getAll: () => db.getAll(),
 	getById: id => db.getById(id),
 	addNew: myobj => db.insert(myobj),
 }
