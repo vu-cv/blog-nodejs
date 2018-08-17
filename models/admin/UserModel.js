@@ -70,18 +70,16 @@ var UsersAction = {
 		 }else {
 			console.log("\nUpdated !");
 		 }
+	}),
+	destroy: id => UserModel.remove({_id: id}).exec((err, result) => {
+		if (err) {
+			console.log("Delete fail !");
+		} else {
+			console.log("Deleted !");
+		}
 	})
 }
 
 
-
-//param1: find, param2: edit
-// UserModel.update({user_login: "hello"}, {user_login: "xin chao"}).exec((err, result) => {
-// 	console.log(result);
-// })
-
-// UserModel.remove({user_login: "hello2"}).exec((err, result) => {
-// 	console.log(result);
-// })
 
 module.exports = UsersAction;

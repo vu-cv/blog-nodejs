@@ -1,10 +1,7 @@
 var router = require('express').Router();
 var menu = require('../settings/menu');
-// var UserLogin = require('../controllers/admin/UserController').get;
-// username: req._passport.session.user
 router.get('/', (req, res) => {
-		res.render('admin/index', {title: "Dashboard", menu: menu});
-		console.log(req._passport.session.user);
+		res.render('admin/index', {title: "Dashboard", menu: menu, userLogin: req._passport.session.user});
 });
 
 /*********** POST ROUTE ***********/
@@ -12,13 +9,13 @@ router.get('/posts', (req, res) => {
 	var PostController = require('../controllers/admin/PostController');
 	PostController.getAll().then(row => {
 		// console.log(row);
-		res.render('admin/post/list', {title: "All Posts", menu: menu, data: row});
+		res.render('admin/post/list', {title: "All Posts", menu: menu, userLogin: req._passport.session.user, data: row});
 	});
 	// console.log("dm");
 });
 
 router.get('/posts/add', (req, res) => {
-	res.render('admin/post/add', {title: "Add New Post", menu: menu});
+	res.render('admin/post/add', {title: "Add New Post", menu: menu, userLogin: req._passport.session.user});
 });
 router.post('/posts/add', (req, res) => {
 	var PostController = require('../controllers/admin/PostController');
@@ -47,15 +44,51 @@ router.get('/posts/:id/edit', (req, res) => {
 	// PostController.getById(id);
 	PostController.getById(id).then(row => {
 		console.log(row);
-		res.render('admin/post/edit', {title: "Edit Posts", menu: menu, data: row});
+		res.render('admin/post/edit', {title: "Edit Posts", menu: menu, userLogin: req._passport.session.user, data: row});
 	});
 });
 
 
 /*********** CATEGORY ROUTE ***********/
 router.get('/posts/category', (req, res) => {
-	res.render('admin/category/list', {title: "Categories", menu: menu});
+	var CategoryController = require('../controllers/admin/CategoryController');
+	CategoryController.getAll().then(row => {
+		
+		res.render('admin/category/list', {title: "Categories", data: row, menu: menu, userLogin: req._passport.session.user});
+	})
 });
+router.get('/posts/category/:id/edit', (req, res) => {
+	var CategoryController = require('../controllers/admin/CategoryController');
+	CategoryController.getAll().then(rows => {
+		CategoryController.getById(req.params.id).then(row => {
+
+			res.render('admin/category/edit', {title: "Edit Category", currentCat: row , data: rows, menu: menu, userLogin: req._passport.session.user});
+		});
+	});
+});
+router.get('/posts/category/:id/delete', (req, res) => {
+	var CategoryController = require('../controllers/admin/CategoryController');
+	CategoryController.delete(req.params.id);
+
+	res.writeHead(302, {
+		'Location': '/admin/posts/category'
+	});
+	res.end();
+});
+
+
+router.post('/posts/category', (req, res) => {
+	var CategoryController = require('../controllers/admin/CategoryController');
+	var name = req.body.name;
+	var slug = req.body.slug
+	var parentId = req.body.parentId;
+	CategoryController.addNew(name, slug, parentId);
+
+	res.writeHead(302, { 
+	  'Location': '/admin/posts/category'
+	});
+	res.end();
+})
 
 
 /*********** COMMENT ROUTE ***********/
@@ -70,7 +103,7 @@ router.get('/media', (req, res) => {
 	str = 'http://' + str;
 	MediaModel.getAll().then(row => {
 		// console.log(row);
-		res.render('admin/media', {title: "Media Library", menu: menu, data: row, hostName: str});
+		res.render('admin/media', {title: "Media Library", menu: menu, userLogin: req._passport.session.user, data: row, hostName: str});
 	})
 });
 router.get('/media/:id/delete', (req, res) => {
@@ -95,23 +128,18 @@ router.get('/media/:id/delete', (req, res) => {
 });
 
 /*********** USER ROUTE ***********/
-// router.get('/users/add', (req, res) => {
-// 	var UserController = require('../controllers/admin/UserController');
-// 	UserController.addNew("chuvu4", "1111", "chuvu@gmail.com4","Chu Văn Vụ", "http://a.jpg");
-// 	res.end("ok");
-// })
 router.get('/users', (req, res) => {
 	
 	var UserController = require('../controllers/admin/UserController');
 	
 	UserController.getAll().then(row => {
-		res.render('admin/user/list', {title: "Users", menu: menu, data: row});
+		res.render('admin/user/list', {title: "Users", menu: menu, userLogin: req._passport.session.user, data: row});
 		// console.log(row);
 	});
 })
 
 router.get('/users/add', (req, res) => {
-	res.render('admin/user/add', {title: "Add New User", menu: menu});
+	res.render('admin/user/add', {title: "Add New User", menu: menu, userLogin: req._passport.session.user});
 })
 
 router.post('/users/add', (req, res) => {
@@ -134,7 +162,7 @@ router.get('/users/:id/edit', (req, res) => {
 	var UserController = require('../controllers/admin/UserController');
 	var id = req.params.id;
 	UserController.getById(id).then(row => {
-		res.render('admin/user/edit', {title: "Edit User", menu: menu, data: row});
+		res.render('admin/user/edit', {title: "Edit User", menu: menu, userLogin: req._passport.session.user, data: row});
 	})
 })
 
@@ -154,8 +182,20 @@ router.post('/users/:id/edit', (req, res) => {
 	});
 	res.end();
 })
-router.get('/test', (req, res) => {
+router.get('/users/:id/delete', (req, res) => {
+	// console.log(req.body);
 	var UserController = require('../controllers/admin/UserController');
+	var id = req.params.id;
+	UserController.delete(id);
+
+	res.writeHead(302, { 
+	  'Location': '/admin/users'
+	});
+	res.end();
+})
+
+router.get('/test', (req, res) => {
+
 
 })
 module.exports = router;

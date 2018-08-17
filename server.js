@@ -134,7 +134,17 @@ io.on("connection", function(socket){
         var fileUrl = image.file.pathName.split('\\').join('/');
         fileUrl = fileUrl.substring(6, fileUrl.length);
         media.insert({name: image.file.name, path: fileUrl, size: image.file.size});
-
+        //gửi cho tất cả người đang connect
         io.sockets.emit('server-send-image-new-upload', fileUrl);
     });
+    //gửi cho tất cả mọi người trừ người gửi
+    // socket.broadcast.emit
+
+    //gửi cho  người gửi
+    socket.on('send-name-category', data => {
+            var slug = require('slug');
+            var convert = slug(data);
+            socket.emit('server-category-slug', convert);
+    })
 });
+

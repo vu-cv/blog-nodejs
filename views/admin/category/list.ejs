@@ -41,12 +41,40 @@
 			<!-- END PAGE HEADER-->
 			<!-- BEGIN PAGE CONTENT-->
 			<div class="row">
-				<div class="col-md-12">
+				<div class="col-sm-3">
+					<form action="" method="POST" role="form">
+						<legend>Add new Category</legend>
+					
+						<div class="form-group">
+							<label for="">Name</label>
+							<input name="name" type="text" class="form-control" id="name" placeholder="">
+						</div>
+						<div class="form-group">
+							<label for="">Slug</label>
+							<input name="slug" type="text" class="form-control" id="slug" placeholder="">
+						</div>
+						<div class="form-group">
+							<label for="">Parent Category</label>
+							<select name="parentId" id="input" class="form-control" required="required">
+								<option value="0">None</option>
+								<% data.forEach(x => {%>
+								<option value="<%= x._id %>"><%= x.name%></option>
+								<% }) %>
+							</select>
+						</div>
+
+						
+						
+					
+						<button type="submit" class="btn btn-primary">Add New Category</button>
+					</form>
+				</div>
+				<div class="col-sm-9">
 					<!-- BEGIN EXAMPLE TABLE PORTLET-->
 					<div class="portlet box green-haze">
 						<div class="portlet-title">
 							<div class="caption">
-								<i class="fa fa-globe"></i>Datatable with TableTools
+								<i class="fa fa-globe"></i>Data
 							</div>
 							<div class="tools">
 								<a href="javascript:;" class="reload">
@@ -60,29 +88,27 @@
 							<thead>
 								<tr>
 									<th>#</th>
-									<th>Title</th>
-									<th>Author</th>
-									<th>Category</th>								
-									<th>Status</th>
-									<th>Date</th>
+									<th>Name</th>
+									<th>Slug</th>
+									<th>Parent</th>
+									<th>Count</th>
 									<th>Action</th>
 								</tr>
 							</thead>
 							<tbody>
-								<% //data.forEach((x, index) => {%>
+								<% data.forEach((x, index) => {%>
 								<tr>
-									<td><%= "index+1" %></td>
-									<td><%= "x.post_title" %></td>
-									<td><%= "x.post_author" %></td>
+									<td><%= index+1 %></td>
+									<td><%= x.name %></td>
+									<td><%= x.slug %></td>
+									<td><%= x.parent_id %></td>
 									<td><%= "..." %></td>
-									<td><%= "x.post_status" %></td>
-									<td><%= "x.post_date.toLocaleString();" %></td>
 									<td>
-										<a href="/admin/posts/<%= //x._id %>/edit" class="btn btn-info btn-xs">Edit</a>
-										<a href="" class="btn btn-danger btn-xs">Delete</a>
+										<a href="/admin/posts/category/<%= x._id %>/edit" class="btn btn-info btn-xs">Edit</a>
+										<a href="/admin/posts/category/<%= x._id %>/delete" class="btn btn-danger btn-xs">Delete</a>
 									</td>
 								</tr>
-								<% //}) %>
+								<% }) %>
 							
 							</tbody>
 							</table>

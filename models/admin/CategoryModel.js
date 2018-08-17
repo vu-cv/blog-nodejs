@@ -1,29 +1,66 @@
-var CategoryModel = {
-	getAll: () => {
-		var db = require('./connect_db.js');
-		var dbo = db.getDb().db('blog');
-		var result = dbo.collection("categories").find({}).toArray();
-		return result;
-	},
-	getById: id => {
-		var db = require('./connect_db.js');
-		var dbo = db.getDb().db('blog');
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/blog');
+var Schema = mongoose.Schema;
 
-		var ObjectID = require('mongodb').ObjectID;
-
-		var result = dbo.collection("categories").findOne({_id: ObjectID("" + id)});
-		// console.log(result);
-		return result;
+//UserSchema
+var CategoryModelSchema = new Schema({
+	name: {
+		type: String, 
+		unique: true,
+		required: true
 	},
-
-	insert: myobj => {
-		var db = require('./connect_db.js');
-		var dbo = db.getDb().db('blog');
-		dbo.collection("categories").insertOne(myobj, function(err, res) {
-		    if (err) throw err;
-		    console.log("1 document inserted");
-	  	});
+	slug: {
+		type: String, 
+		unique: true,
+		required: true
 	},
+	parent_id: String,
+
+	create_at: {
+		type: Date, 
+		default: Date.now()
+	}
+})
+
+var CategoryModel = mongoose.model('categories', CategoryModelSchema);
+//create users model
+var CategoryriesAction = {
+	getAll: () => CategoryModel.find().exec(),
+	getByName: name => CategoryModel.find({user_login: name}).exec(),
+	getById: id => CategoryModel.findById(id).exec(),
+	store: (name, slug, parentId) => {
+		CategoryModel.create({
+			name: name,
+			slug: slug,
+			parent_id: parentId,
+			create_at: Date.now()
+		}, (err, result) => {
+			 if (err) {
+			 	console.log("\nInsert fail: " + err.message);
+			 }else {
+				console.log("\nInserted !");
+			 }
+		});
+	},
+	update: (id, name, slug, parentId) => CategoryModel.update({_id: id}, {
+		name: name,
+		slug: slug,
+		parent_id: parentId,
+	}).exec((err, result) => {
+		if (err) {
+		 	console.log("\nUpdate fail: " + err.message);
+		 }else {
+			console.log("\nUpdated !");
+		 }
+	}),
+	destroy: id => CategoryModel.remove({_id: id}).exec((err, result) => {
+		if (err) {
+			console.log("Delete fail !");
+		} else {
+			console.log("Deleted !");
+		}
+	})
 }
 
-module.exports = PostModel;
+
+module.exports = CategoryriesAction;

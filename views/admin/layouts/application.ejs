@@ -16,7 +16,7 @@
 	<link href="/admin/assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css"/>
 	<!-- END GLOBAL MANDATORY STYLES -->
 	
-	<% if (title == "All Posts" || title == "Categories") { %>
+	<% if (title == "All Posts" || title == "Categories" || title == "Edit Category") { %>
 	<!-- BEGIN PAGE LEVEL STYLES -->
 	<link rel="stylesheet" type="text/css" href="/admin/assets/global/plugins/select2/select2.css"/>
 	<link rel="stylesheet" type="text/css" href="/admin/assets/global/plugins/datatables/extensions/Scroller/css/dataTables.scroller.min.css"/>
@@ -87,7 +87,7 @@
 	<script src="/admin/assets/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
 	<script src="/admin/assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
 	<!-- END CORE PLUGINS -->
-	<% if(title == "All Posts" || title == "Categories") { %>
+	<% if(title == "All Posts" || title == "Categories" || title == "Edit Category") { %>
 	<!-- BEGIN PAGE LEVEL PLUGINS -->
 	<script type="text/javascript" src="/admin/assets/global/plugins/select2/select2.min.js"></script>
 	<script type="text/javascript" src="/admin/assets/global/plugins/datatables/media/js/jquery.dataTables.min.js"></script>
@@ -153,6 +153,11 @@
 	
 	<script type="text/javascript" src="/admin/upload.js"></script>
 	<% } %>
+	<% if(title == "Categories") { %>
+	
+	<script type="text/javascript" src="/admin/js/category.js"></script>
+	<% } %>
+
 	<!-- END PAGE LEVEL SCRIPTS -->
 		
 		<script>
@@ -161,7 +166,7 @@
 			Layout.init(); // init current layout
 			QuickSidebar.init(); // init quick sidebar
 			Demo.init(); // init demo features
-		<% if(title == "All Posts" || title == "Categories") { %>
+		<% if(title == "All Posts" || title == "Categories" || title == "Edit Category") { %>
 		 	TableAdvanced.init();
 		<% } else if (title == "Add New Post" || title == "Edit Posts" || title == "Add New User" || title == "Edit User") { %>
 			FormValidation.init();

@@ -1,4 +1,6 @@
 <% extend('../layouts/application', title) %>
+
+
 <!-- BEGIN HEADER -->
 <%- include('../common/top-header') -%>
 <!-- END HEADER -->
@@ -38,98 +40,34 @@
 			<%- include('../common/page-header') -%>
 			<!-- END PAGE HEADER-->
 			<!-- BEGIN PAGE CONTENT-->
-
 			<div class="row">
-				<div class="col-md-12">
-					<!-- BEGIN VALIDATION STATES-->
-					<form action="" method="POST" role="form" class="form-body">
-						<div class="add-post-left col-sm-9">
-							
-							<div class="alert alert-danger display-hide">
-								<button class="close" data-close="alert"></button>
-								You have some form errors. Please check below.
-							</div>
-							<div class="alert alert-success display-hide">
-								<button class="close" data-close="alert"></button>
-								Your form validation is successful!
-							</div>
-							<div class="form-group">
-								<label class="control-label sr-only">Title</label>
-								<input value="<%= data.post_title%>" type="text" name="title" data-required="1" class="form-control" placeholder="Enter title here" />
-							</div>
-							<div class="form-group last">
-								<textarea class="wysihtml5 form-control" rows="20" name="content" data-error-container="#editor1_error"><%= data.post_content%></textarea>
-								<div id="editor1_error">
-								</div>
-							</div>							
+				<div class="col-sm-8">
+					<form action="" method="POST" role="form">
+						<!-- <legend>Add new Category</legend> -->
+					
+						<div class="form-group">
+							<label for="">Name</label>
+							<input value="<%= currentCat.name  %>" name="name" type="text" class="form-control" id="name" placeholder="">
 						</div>
-						<div class="add-post-left col-sm-3">
-							<div class="panel panel-info">
-								<div class="panel-heading">
-									<h3 class="panel-title">Publish</h3>
-								</div>
-								<div class="panel-body">
+						<div class="form-group">
+							<label for="">Slug</label>
+							<input value="<%= currentCat.slug  %>" name="slug" type="text" class="form-control" id="slug" placeholder="">
+						</div>
+						<div class="form-group">
+							<label for="">Parent Category</label>
+							<select name="parentId" id="input" class="form-control" required="required">
+								<option value="0">None</option>
+								<% data.forEach(x => {%>
+								<option value="<%= x._id %>" <% if(x._id == currentCat.parent_id) { %><%= "selected" %><% } %>><%= x.name%></option>
+								<%= //x._id + " " + currentCat.parent_id %>
+								<% }) %>
+							</select>
+						</div>
 
-									<select class="form-control select2me sl-post-cat" name="category">
-										<option class="op-cat" value="0">Select category...</option>
-										<option class="op-cat" value="1">Option 1</option>
-										<option class="op-cat" value="2">Option 2</option>
-										<option class="op-cat" value="3">Option 3</option>
-										<option class="op-cat" value="4">Option 4</option>
-									</select>
-									<script type="text/javascript">
-										var x = document.querySelectorAll(".op-cat");
-										// x[1].setAttribute('selected', 'true');
-										x.forEach((o, index) => {
-											if (x[index].value == "<%= data.post_category %>") {
-												x[index].setAttribute('selected', 'true');
-											}
-										})
-									</script>
-									<select class="form-control select2me" name="status">
-										<option class="op-status" value="0">Post status...</option>
-										<option class="op-status" value="publish">Publish</option>
-										<option class="op-status" value="hide">Hide</option>
-										<option class="op-status" value="pending">Pending</option>
-									</select>
-									<script type="text/javascript">
-										var stt = document.querySelectorAll(".op-status");
-										console.log(stt);
-										stt.forEach((st, index) => {
-											if (stt[index].value == "<%= data.post_status %>") {
-												stt[index].setAttribute('selected', 'true');
-											}
-										})
-									</script>
-								</div>
-							</div>
-							<div class="panel panel-info">
-								<div class="panel-heading">
-									<h3 class="panel-title">Featured Image</h3>
-								</div>
-								<div class="panel-body">
-									<a id="set-featured-image" class="" data-toggle="modal" href='#modal-id'>Set featured image</a>
-									<div class="modal fade" id="modal-id">
-										<div class="modal-dialog">
-											<div class="modal-content">
-												<div class="modal-header">
-													<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-													<h4 class="modal-title">Modal title</h4>
-												</div>
-												<div class="modal-body">
-													
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-													<button type="button" class="btn btn-primary">Save changes</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<button id="btnPostAdd" type="submit" class="btn btn-info" name="btnPostAdd">Update</button>
-						</div>
+						
+						
+					
+						<button type="submit" class="btn btn-primary">Update</button>
 					</form>
 				</div>
 			</div>
@@ -146,3 +84,4 @@
 <!-- BEGIN FOOTER -->
 <%- include('../common/page-footer') -%>
 <!-- END FOOTER -->
+
