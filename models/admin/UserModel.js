@@ -1,29 +1,64 @@
-var PostModel = {
-	getAll: () => {
-		var db = require('./connect_db.js');
-		var dbo = db.getDb().db('blog');
-		var result = dbo.collection("users").find({}).toArray();
-		return result;
-	},
-	getById: id => {
-		var db = require('./connect_db.js');
-		var dbo = db.getDb().db('blog');
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/blog');
+var Schema = mongoose.Schema;
 
-		var ObjectID = require('mongodb').ObjectID;
-
-		var result = dbo.collection("users").findOne({_id: ObjectID("" + id)});
-		// console.log(result);
-		return result;
+//UserSchema
+var UserModelSchema = new Schema({
+	user_login: {
+		type: String, 
+		unique: true,
+		required: true
 	},
-
-	insert: myobj => {
-		var db = require('./connect_db.js');
-		var dbo = db.getDb().db('blog');
-		dbo.collection("users").insertOne(myobj, function(err, res) {
-		    if (err) throw err;
-		    console.log("1 document inserted");
-	  	});
+	user_pass: {
+		type: String,
+		required: true
 	},
+	user_email: {
+		type: String, 
+		unique: true,
+		required: true
+	},
+	display_name: String,
+	image_url: String,
+	user_registered: {
+		type: Date, 
+		default: Date.now()
+	}
+})
+
+var UserModel = mongoose.model('users', UserModelSchema);
+
+//create users model
+var UsersAction = {
+	store: (username, password, email, name_display, avatar) => {
+		UserModel.create({
+			user_login: username,
+			user_pass: password,
+			user_email: email,
+			display_name: name_display,
+			image_url: avatar,
+			user_registered: Date.now()
+		}, (err, result) => {
+			 if (err) {
+			 	console.log("\nInsert fail: " + err.message);
+			 }else {
+				console.log("\nInserted !");
+			 }
+		});
+	}
 }
 
-module.exports = PostModel;
+// UserModel.find().exec((err, result) => {
+// 	console.log(result);
+// })
+
+//param1: find, param2: edit
+// UserModel.update({user_login: "hello"}, {user_login: "xin chao"}).exec((err, result) => {
+// 	console.log(result);
+// })
+
+// UserModel.remove({user_login: "hello2"}).exec((err, result) => {
+// 	console.log(result);
+// })
+
+module.exports = UsersAction;

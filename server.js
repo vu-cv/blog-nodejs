@@ -1,6 +1,7 @@
 const express = require('express');
 const Passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
+const FacebookStrategy = require('passport-facebook').Strategy;
 const bodyParser = require('body-parser');
 const expressLayouts = require('express-ejs-extend');
 const session = require('express-session');
@@ -17,9 +18,9 @@ app.use(bodyParser.json());
 
 app.use(session({
     secret: "mysecret",
-    cookie: {
-        maxAge: 1000*60*5
-    }
+    // cookie: {
+    //     maxAge: 1000*60*5
+    // }
 
 }));
 app.use(Passport.initialize());
@@ -47,15 +48,13 @@ var url = "mongodb://localhost:27017/";
 app.route('/login')
 .get((req, res) => {
     res.render('admin/login');
-    req.flash('successFlash');
+    // console.log(req.flash('error'));
 })
 .post(Passport.authenticate('local', {
     failureRedirect: '/login', 
-    successRedirect: "/admin",
-    failureFlash: 'Login fail !',
-    successFlash: 'Login succes !'
+    successRedirect: '/admin',
 }));
-
+//Login Local
 Passport.use(new LocalStrategy (
     (username, password, done) => {
         MongoClient.connect(url, function(err, db) {
@@ -64,7 +63,7 @@ Passport.use(new LocalStrategy (
           dbo.collection("users").find({ user_login: username }).toArray((err, result) => {
             if (err) throw err;
             if (result[0] == undefined) {
-                return done(null, false);
+                return done(null, false, {message: 'Không tồn tại user'});
             } else if(result[0].user_login == username && result[0].user_pass == password) {
                 return done(null, result[0]);
             } else {
@@ -74,6 +73,7 @@ Passport.use(new LocalStrategy (
         });
     }
 ))
+
 Passport.serializeUser((user, done) => {
     done(null, user.user_login);
 });
@@ -94,9 +94,22 @@ Passport.deserializeUser((name, done) => {
     });
 })
 
+function isAuthenticated(req, res, next){
+    if(req.isAuthenticated()){
+        next();
+    }else{
+        res.writeHead(302, { 
+          'Location': '/logout'
+        });
+        res.end();
+    }
+
+}
+
 // route group admin
 const route = require('./routes/admin');
-app.use('/admin', route);
+app.use('/admin', isAuthenticated, route);
+
 
 const routeSite = require('./routes/site');
 routeSite(app);

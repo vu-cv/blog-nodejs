@@ -16,7 +16,9 @@
     "express-group-routes": "^1.1.0",
     "express-session": "^1.15.6",
     "mongodb": "^3.1.3",
+    "mongoose": "^5.2.8",
     "passport": "^0.4.0",
+    "passport-facebook": "^2.1.1",
     "passport-local": "^1.0.0",
     "socket.io": "^2.1.1",
     "socketio-file-upload": "^0.6.2"

@@ -1,15 +1,8 @@
 var router = require('express').Router();
 var menu = require('../settings/menu');
-
+// username: req._passport.session.user
 router.get('/', (req, res) => {
-	if (req.isAuthenticated()) {
 		res.render('admin/index', {title: "Dashboard", menu: menu});
-	} else {
-		res.writeHead(302, { 
-		  'Location': '/login'
-		});
-		res.end();
-	}
 });
 
 /*********** POST ROUTE ***********/
@@ -100,6 +93,10 @@ router.get('/media/:id/delete', (req, res) => {
 });
 
 /*********** USER ROUTE ***********/
-
+router.get('/users/add', (req, res) => {
+	var UserController = require('../controllers/admin/UserController');
+	UserController.addNew("chuvu4", "1111", "chuvu@gmail.com4","Chu Văn Vụ", "http://a.jpg");
+	res.end("ok");
+})
 
 module.exports = router;

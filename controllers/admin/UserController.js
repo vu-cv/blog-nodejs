@@ -1,9 +1,9 @@
-const db = require('../../models/admin/UserModel');
+const UserModel = require('../../models/admin/UserModel');
 
 var UserController = {
-	getAll: () => db.getAll(),
-	getById: id => db.getById(id),
-	addNew: myobj => db.insert(myobj),
+	// getAll: () => db.getAll(),
+	// getById: id => db.getById(id),
+	addNew: (username, password, email, display_name, avatar) => UserModel.store(username, password, email, display_name, avatar),
 }
 
 module.exports = UserController;
