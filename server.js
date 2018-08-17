@@ -75,18 +75,18 @@ Passport.use(new LocalStrategy (
 ))
 
 Passport.serializeUser((user, done) => {
-    done(null, user.user_login);
+    done(null, user);
 });
-Passport.deserializeUser((name, done) => {
+Passport.deserializeUser((user, done) => {
     MongoClient.connect(url, function(err, db) {
       if (err) throw err;
       var dbo = db.db("blog");
-      dbo.collection("users").find({ user_login: name }).toArray((err, result) => {
+      dbo.collection("users").find({ user_login: user.user_login }).toArray((err, result) => {
         if (err) throw err;
         if (result[0] == undefined) {
                 return done(null, false);
-        } else if(result[0].user_login == name) {
-            return done(null, result[0].user_login == name);
+        } else if(result[0].user_login == user.user_login) {
+            return done(null, result[0].user_login == user.user_login);
         } else {
             return done(null, false);
         }

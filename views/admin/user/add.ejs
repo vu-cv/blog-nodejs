@@ -1,6 +1,4 @@
 <% extend('../layouts/application', title) %>
-
-
 <!-- BEGIN HEADER -->
 <%- include('../common/top-header') -%>
 <!-- END HEADER -->
@@ -40,55 +38,50 @@
 			<%- include('../common/page-header') -%>
 			<!-- END PAGE HEADER-->
 			<!-- BEGIN PAGE CONTENT-->
+
 			<div class="row">
 				<div class="col-md-12">
-					<!-- BEGIN EXAMPLE TABLE PORTLET-->
-					<div class="portlet box green-haze">
-						<div class="portlet-title">
-							<div class="caption">
-								<i class="fa fa-globe"></i>List Posts
-							</div>
-							<div class="tools">
-								<a href="javascript:;" class="reload">
-								</a>
-								<!-- <a href="javascript:;" class="remove">
-								</a> -->
-							</div>
-						</div>
-						<div class="portlet-body">
-							<table class="table table-striped table-bordered table-hover" id="sample_2">
-							<thead>
-								<tr>
-									<th>#</th>
-									<th>Title</th>
-									<th>Author</th>
-									<th>Category</th>								
-									<th>Status</th>
-									<th>Date</th>
-									<th>Action</th>
-								</tr>
-							</thead>
-							<tbody>
-								<% data.forEach((x, index) => {%>
-								<tr>
-									<td><%= index+1 %></td>
-									<td><%= x.post_title %></td>
-									<td><%= x.post_author %></td>
-									<td><%= "..." %></td>
-									<td><%= x.post_status %></td>
-									<td><%= x.post_date.toLocaleString(); %></td>
-									<td>
-										<a href="/admin/posts/<%= x._id %>/edit" class="btn btn-info btn-xs">Edit</a>
-										<a href="" class="btn btn-danger btn-xs">Delete</a>
-									</td>
-								</tr>
-								<% }) %>
+					<!-- BEGIN VALIDATION STATES-->
+					<form action="" method="POST" role="form" class="form-body">
+						<div class="add-post-left col-sm-9">
 							
-							</tbody>
-							</table>
+							<div class="alert alert-danger display-hide">
+								<button class="close" data-close="alert"></button>
+								You have some form errors. Please check below.
+							</div>
+							<div class="alert alert-success display-hide">
+								<button class="close" data-close="alert"></button>
+								Your form validation is successful!
+							</div>
+							<div class="form-group">
+								<label class="control-label sr-only">Username</label>
+								<input type="text" name="username" data-required="1" class="form-control" placeholder="Username" required />
+							</div>
+							<div class="form-group">
+								<label class="control-label sr-only">Email</label>
+								<input type="email" name="email" data-required="1" class="form-control" placeholder="Email" required />
+							</div>
+							<div class="form-group">
+								<label class="control-label sr-only">Display name</label>
+								<input type="text" name="displayName" data-required="1" class="form-control" placeholder="Display name" required />
+							</div>
+							<div class="form-group">
+								<label class="control-label sr-only">Password</label>
+								<input type="password" name="password" data-required="1" class="form-control" placeholder="Password" required />
+							</div>
+							<div class="form-group">
+								<label class="control-label sr-only">Password</label>
+								<select name="roles" class="form-control" required>
+									<option value="1">Administrator</option>
+									<option value="2">Author</option>
+									<option value="3">Customer</option>
+								</select>
+							</div>
+							<button type="submit" class="btn btn-success">Add New User</button>
+	
+
 						</div>
-					</div>
-					<!-- END EXAMPLE TABLE PORTLET-->
+					</form>
 				</div>
 			</div>
 			<!-- END PAGE CONTENT-->
@@ -104,4 +97,3 @@
 <!-- BEGIN FOOTER -->
 <%- include('../common/page-footer') -%>
 <!-- END FOOTER -->
-

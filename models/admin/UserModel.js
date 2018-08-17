@@ -18,8 +18,15 @@ var UserModelSchema = new Schema({
 		unique: true,
 		required: true
 	},
-	display_name: String,
+	display_name: {
+		type: String,
+		required: true
+	},
 	image_url: String,
+	roles: {
+		type: Number,
+		required: true
+	},
 	user_registered: {
 		type: Date, 
 		default: Date.now()
@@ -27,15 +34,19 @@ var UserModelSchema = new Schema({
 })
 
 var UserModel = mongoose.model('users', UserModelSchema);
-
+// var id = "5b767476ed226519b4544366";
 //create users model
 var UsersAction = {
-	store: (username, password, email, name_display, avatar) => {
+	getAll: () => UserModel.find().exec(),
+	getByName: name => UserModel.find({user_login: name}).exec(),
+	getById: id => UserModel.findById(id).exec(),
+	store: (username, password, email, name_display, role, avatar) => {
 		UserModel.create({
 			user_login: username,
 			user_pass: password,
 			user_email: email,
 			display_name: name_display,
+			roles: role,
 			image_url: avatar,
 			user_registered: Date.now()
 		}, (err, result) => {
@@ -45,12 +56,24 @@ var UsersAction = {
 				console.log("\nInserted !");
 			 }
 		});
-	}
+	},
+	update: (id, password, email, name_display, role, avatar) => UserModel.update({_id: id}, {
+		// user_login: username,
+		user_pass: password,
+		user_email: email,
+		display_name: name_display,
+		roles: role,
+		image_url: avatar,
+	}).exec((err, result) => {
+		if (err) {
+		 	console.log("\nUpdate fail: " + err.message);
+		 }else {
+			console.log("\nUpdated !");
+		 }
+	})
 }
 
-// UserModel.find().exec((err, result) => {
-// 	console.log(result);
-// })
+
 
 //param1: find, param2: edit
 // UserModel.update({user_login: "hello"}, {user_login: "xin chao"}).exec((err, result) => {

@@ -23,7 +23,7 @@
 	<link rel="stylesheet" type="text/css" href="/admin/assets/global/plugins/datatables/extensions/ColReorder/css/dataTables.colReorder.min.css"/>
 	<link rel="stylesheet" type="text/css" href="/admin/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css"/>
 	<!-- END PAGE LEVEL STYLES -->
-	<% } else if (title == "Add New Post" || title == "Edit Posts") { %>
+	<% } else if (title == "Add New Post" || title == "Edit Posts" || title == "Add New User" || title == "Edit User") { %>
 		<link rel="stylesheet" type="text/css" href="/admin/assets/global/plugins/select2/select2.css"/>
 		<link rel="stylesheet" type="text/css" href="/admin/assets/global/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.css"/>
 		<link rel="stylesheet" type="text/css" href="/admin/assets/global/plugins/bootstrap-markdown/css/bootstrap-markdown.min.css">
@@ -98,7 +98,7 @@
 	<script src="/admin/assets/admin/pages/scripts/table-advanced.js"></script>
 	<!-- END PAGE LEVEL PLUGINS -->
 
-	<% } else if (title == "Add New Post" || title == "Edit Posts") { %>
+	<% } else if (title == "Add New Post" || title == "Edit Posts" || title == "Add New User" || title == "Edit User") { %>
 		<!-- BEGIN PAGE LEVEL PLUGINS -->
 		<script type="text/javascript" src="/admin/assets/global/plugins/jquery-validation/js/jquery.validate.min.js"></script>
 		<script type="text/javascript" src="/admin/assets/global/plugins/jquery-validation/js/additional-methods.min.js"></script>
@@ -163,7 +163,7 @@
 			Demo.init(); // init demo features
 		<% if(title == "All Posts" || title == "Categories") { %>
 		 	TableAdvanced.init();
-		<% } else if (title == "Add New Post" || title == "Edit Posts") { %>
+		<% } else if (title == "Add New Post" || title == "Edit Posts" || title == "Add New User" || title == "Edit User") { %>
 			FormValidation.init();
 		<% } else { %>
 		   Index.init();   

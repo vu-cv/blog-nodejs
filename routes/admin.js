@@ -1,8 +1,10 @@
 var router = require('express').Router();
 var menu = require('../settings/menu');
+// var UserLogin = require('../controllers/admin/UserController').get;
 // username: req._passport.session.user
 router.get('/', (req, res) => {
 		res.render('admin/index', {title: "Dashboard", menu: menu});
+		console.log(req._passport.session.user);
 });
 
 /*********** POST ROUTE ***********/
@@ -93,10 +95,67 @@ router.get('/media/:id/delete', (req, res) => {
 });
 
 /*********** USER ROUTE ***********/
-router.get('/users/add', (req, res) => {
+// router.get('/users/add', (req, res) => {
+// 	var UserController = require('../controllers/admin/UserController');
+// 	UserController.addNew("chuvu4", "1111", "chuvu@gmail.com4","Chu Văn Vụ", "http://a.jpg");
+// 	res.end("ok");
+// })
+router.get('/users', (req, res) => {
+	
 	var UserController = require('../controllers/admin/UserController');
-	UserController.addNew("chuvu4", "1111", "chuvu@gmail.com4","Chu Văn Vụ", "http://a.jpg");
-	res.end("ok");
+	
+	UserController.getAll().then(row => {
+		res.render('admin/user/list', {title: "Users", menu: menu, data: row});
+		// console.log(row);
+	});
 })
 
+router.get('/users/add', (req, res) => {
+	res.render('admin/user/add', {title: "Add New User", menu: menu});
+})
+
+router.post('/users/add', (req, res) => {
+	// console.log(req.body);
+	var UserController = require('../controllers/admin/UserController');
+	var username = req.body.username;
+	var password = req.body.password;
+	var email = req.body.email;
+	var display_name = req.body.displayName;
+	var role = Number(req.body.roles);
+	UserController.addNew(username, password, email, display_name, role, "...");
+
+	res.writeHead(302, { 
+	  'Location': '/admin/users'
+	});
+	res.end();
+})
+
+router.get('/users/:id/edit', (req, res) => {
+	var UserController = require('../controllers/admin/UserController');
+	var id = req.params.id;
+	UserController.getById(id).then(row => {
+		res.render('admin/user/edit', {title: "Edit User", menu: menu, data: row});
+	})
+})
+
+router.post('/users/:id/edit', (req, res) => {
+	// console.log(req.body);
+	var UserController = require('../controllers/admin/UserController');
+	var id = req.body.id;
+	// var username = req.body.username;
+	var password = req.body.password;
+	var email = req.body.email;
+	var display_name = req.body.displayName;
+	var role = Number(req.body.roles);
+	UserController.edit(id, password, email, display_name, role, "...");
+
+	res.writeHead(302, { 
+	  'Location': '/admin/users'
+	});
+	res.end();
+})
+router.get('/test', (req, res) => {
+	var UserController = require('../controllers/admin/UserController');
+
+})
 module.exports = router;
