@@ -15,6 +15,8 @@ router.get('/posts', (req, res) => {
 });
 
 router.get('/posts/add', (req, res) => {
+	var CategoryController = require('../controllers/admin/CategoryController');
+	
 	res.render('admin/post/add', {title: "Add New Post", menu: menu, userLogin: req._passport.session.user});
 });
 router.post('/posts/add', (req, res) => {
@@ -27,9 +29,9 @@ router.post('/posts/add', (req, res) => {
 		post_status: req.body.status,
 		post_date: Date.now()
 	});
-	res.writeHead(302, { 
-	  'Location': '/admin/posts'
-	});
+	// res.writeHead(302, { 
+	//   'Location': '/admin/posts'
+	// });
 	res.end();
 });
 

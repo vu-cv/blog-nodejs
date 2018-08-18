@@ -120,8 +120,8 @@ routeSite(app);
 
 
 
-var media = require('./models/admin/MediaModel');
 
+var MediaModel = require('./models/admin/MediaModel');
 io.on("connection", function(socket){
     var uploader = new SocketIOFileUpload();
     uploader.dir = "./public/upload";
@@ -131,9 +131,10 @@ io.on("connection", function(socket){
     uploader.on("saved", function(image){
         console.log("saved!");
         // console.log(image.file);
+
         var fileUrl = image.file.pathName.split('\\').join('/');
         fileUrl = fileUrl.substring(6, fileUrl.length);
-        media.insert({name: image.file.name, path: fileUrl, size: image.file.size});
+        MediaModel.store(image.file.name, fileUrl, image.file.size);
         //gửi cho tất cả người đang connect
         io.sockets.emit('server-send-image-new-upload', fileUrl);
     });

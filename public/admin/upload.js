@@ -24,8 +24,8 @@ $(document).ready(function() {
 	siofu.listenOnInput(document.getElementById("ip-upload"));
 	siofu.listenOnDrop(document.getElementById("form-upload"));
 	socket.on('server-send-image-new-upload', imageUrl => {
-			// console.log(imageUrl);
-			$('#rowImageMedia').append('<div class="col-sm-2 pd-bt-20"><img src="'+imageUrl+'" class="img-responsive image-media"></div>');
+			location.reload();
+			// $('#rowImageMedia').append('<div class="col-sm-2 pd-bt-20"><img src="'+imageUrl+'" class="img-responsive image-media"></div>');
 			
 	});
 	siofu.maxFileSize = maxSize*1024*1024;

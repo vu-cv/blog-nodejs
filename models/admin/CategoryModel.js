@@ -26,7 +26,6 @@ var CategoryModel = mongoose.model('categories', CategoryModelSchema);
 //create users model
 var CategoryriesAction = {
 	getAll: () => CategoryModel.find().exec(),
-	getByName: name => CategoryModel.find({user_login: name}).exec(),
 	getById: id => CategoryModel.findById(id).exec(),
 	store: (name, slug, parentId) => {
 		CategoryModel.create({

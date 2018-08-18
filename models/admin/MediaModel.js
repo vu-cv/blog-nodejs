@@ -1,43 +1,70 @@
-var MediaModel = {
-	getAll: () => {
-		var db = require('./connect_db.js');
-		var dbo = db.getDb().db('blog');
-		var result = dbo.collection("media").find({}).toArray();
-		return result;
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/blog');
+var Schema = mongoose.Schema;
+
+//UserSchema
+var MediaModelSchema = new Schema({
+	name: {
+		type: String, 
+		unique: true,
+		required: true
 	},
-	getById: id => {
-		var db = require('./connect_db.js');
-		var dbo = db.getDb().db('blog');
-
-		var ObjectID = require('mongodb').ObjectID;
-
-		var result = dbo.collection("media").findOne({_id: ObjectID("" + id)});
-		// console.log(result);
-		return result;
+	path: {
+		type: String, 
+		unique: true,
+		required: true
 	},
-
-	update: myobj => {
-		var db = require('./connect_db.js');
-		var dbo = db.getDb().db('blog');
-		dbo.collection("media").insertOne(myobj, function(err, res) {
-		    if (err) throw err;
-		    console.log("1 document inserted");
-	  	});
+	size: {
+		type: String, 
+		unique: true,
+		required: true
 	},
-	delete: id => {
-		var db = require('./connect_db.js');
-		var dbo = db.getDb().db('blog');
+	
 
-		var ObjectID = require('mongodb').ObjectID;
-		
-		var myquery = { _id: ObjectID("" + id) };
+	upload_time: {
+		type: Date, 
+		default: Date.now()
+	}
+})
 
-		dbo.collection("media").deleteOne(myquery, function(err, obj) {
-		    if (err) throw err;
-		    console.log("1 document deleted");
-	 	 });
+var MediaModel = mongoose.model('media', MediaModelSchema);
+//create users model
+var MediaAction = {
+	getAll: () => MediaModel.find().exec(),
+	getById: id => MediaModel.findById(id).exec(),
+	store: (name, path, size) => {
+		MediaModel.create({
+			name: name,
+			path: path,
+			size: size,
+			create_at: Date.now()
+		}, (err, result) => {
+			 if (err) {
+			 	console.log("\nInsert fail: " + err.message);
+			 }else {
+				console.log("\nInserted !");
+			 }
+		});
 	},
-
+	update: (id, name, path, size) => MediaModel.update({_id: id}, {
+		name: name,
+		path: path,
+		size: size,
+	}).exec((err, result) => {
+		if (err) {
+		 	console.log("\nUpdate fail: " + err.message);
+		 }else {
+			console.log("\nUpdated !");
+		 }
+	}),
+	destroy: id => MediaModel.remove({_id: id}).exec((err, result) => {
+		if (err) {
+			console.log("Delete fail !");
+		} else {
+			console.log("Deleted !");
+		}
+	})
 }
 
-module.exports = MediaModel;
+
+module.exports = MediaAction;

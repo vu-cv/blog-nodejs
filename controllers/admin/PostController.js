@@ -1,9 +1,9 @@
-const db = require('../../models/admin/PostModel');
+const PostModel = require('../../models/admin/PostModel');
 
-var PostController = {
-	getAll: () => db.getAll(),
-	getById: id => db.getById(id),
-	addNew: myobj => db.insert(myobj),
+module.exports = {
+	getAll: () => PostModel.getAll(),
+	getById: id => PostModel.getById(id),
+	addNew: (title, content, author, status, slug, image) => PostModel.store(title, content, author, status, slug, image),
+	edit: (id, title, content, author, status, slug, image) => PostModel.store(id, title, content, author, status, slug, image),
+	delete: id => PostModel.destroy(id),
 }
-
-module.exports = PostController;

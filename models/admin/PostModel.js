@@ -1,29 +1,90 @@
-var PostModel = {
-	getAll: () => {
-		var db = require('./connect_db.js');
-		var dbo = db.getDb().db('blog');
-		var result = dbo.collection("posts").find({}).toArray();
-		return result;
-	},
-	getById: id => {
-		var db = require('./connect_db.js');
-		var dbo = db.getDb().db('blog');
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/blog');
+var Schema = mongoose.Schema;
 
-		var ObjectID = require('mongodb').ObjectID;
-
-		var result = dbo.collection("posts").findOne({_id: ObjectID("" + id)});
-		// console.log(result);
-		return result;
+//UserSchema
+var PostModelSchema = new Schema({
+	post_author: {
+		type: String, 
+		unique: true,
+		required: true
+	},
+	post_title: {
+		type: String, 
+		unique: true,
+		required: true
+	},
+	post_content: {
+		type: String, 
+		unique: true,
+		required: true
+	},
+	post_status: {
+		type: String, 
+		unique: true,
+		required: true
+	},
+	post_slug: {
+		type: String, 
+		unique: true,
+		required: true
+	},
+	post_image: {
+		type: String, 
+		unique: true,
+		required: true
 	},
 
-	insert: myobj => {
-		var db = require('./connect_db.js');
-		var dbo = db.getDb().db('blog');
-		dbo.collection("posts").insertOne(myobj, function(err, res) {
-		    if (err) throw err;
-		    console.log("1 document inserted");
-	  	});
+	create_at: {
+		type: Date, 
+		default: Date.now()
+	}
+})
+
+var PostModel = mongoose.model('categories', PostModelSchema);
+//create users model
+var PostAction = {
+	getAll: () => PostModel.find().exec(),
+	getById: id => PostModel.findById(id).exec(),
+	store: (title, content, author, status, slug, image) => {
+		PostModel.create({
+			post_title: title,
+			post_content: content,
+			post_author: author,
+			post_status: status,
+			post_slug: slug,
+			post_image: image,
+			create_at: Date.now()
+		}, (err, result) => {
+			 if (err) {
+			 	console.log("\nInsert fail: " + err.message);
+			 }else {
+				console.log("\nInserted !");
+			 }
+		});
 	},
+	update: (id, title, content, author, status, slug, image) => PostModel.update({_id: id}, {
+		post_title: title,
+			post_content: content,
+			post_author: author,
+			post_status: status,
+			post_slug: slug,
+			post_image: image,
+	}).exec((err, result) => {
+		if (err) {
+		 	console.log("\nUpdate fail: " + err.message);
+		 }else {
+			console.log("\nUpdated !");
+		 }
+	}),
+	destroy: id => PostModel.remove({_id: id}).exec((err, result) => {
+		if (err) {
+			console.log("Delete fail !");
+		} else {
+			console.log("Deleted !");
+		}
+	})
 }
 
-module.exports = PostModel;
+
+module.exports = PostAction;
