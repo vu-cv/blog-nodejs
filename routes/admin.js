@@ -8,7 +8,7 @@ router.get('/', (req, res) => {
 router.get('/posts', (req, res) => {
 	var PostController = require('../controllers/admin/PostController');
 	PostController.getAll().then(row => {
-		// console.log(row);
+		console.log(row);
 		res.render('admin/post/list', {title: "All Posts", menu: menu, userLogin: req._passport.session.user, data: row});
 	});
 	// console.log("dm");
@@ -16,19 +16,25 @@ router.get('/posts', (req, res) => {
 
 router.get('/posts/add', (req, res) => {
 	var CategoryController = require('../controllers/admin/CategoryController');
-	
-	res.render('admin/post/add', {title: "Add New Post", menu: menu, userLogin: req._passport.session.user});
+	var MediaController = require('../controllers/admin/MediaController');
+	CategoryController.getAll().then(cat => {
+		MediaController.getAll().then(media => {
+			res.render('admin/post/add', {title: "Add New Post", data: {cat, media}, menu: menu, userLogin: req._passport.session.user});
+			
+		})
+	})
 });
 router.post('/posts/add', (req, res) => {
 	var PostController = require('../controllers/admin/PostController');
-	PostController.addNew({
-		post_title: req.body.title,
-		post_content: req.body.content,
-		post_category: req.body.category,
-		post_author: 1,
-		post_status: req.body.status,
-		post_date: Date.now()
-	});
+	// console.log(req.body);
+	var title = req.body.title;
+	var content = req.body.content;
+	var author = req.body.author;
+	var status = req.body.status;
+	var slug = req.body.slug;
+	var image = req.body.image_url;
+	var category = req.body.category;
+	PostController.addNew(title, content, author, status, slug, image, category);
 	// res.writeHead(302, { 
 	//   'Location': '/admin/posts'
 	// });

@@ -76,3 +76,30 @@ i#icon-close {
 .word-wrap {
     word-wrap: break-word;
 }
+
+#modal-set-img {
+    width: 95%;
+    /*height: 95vh;*/
+    /*overflow: scroll;*/
+}
+#modal-set-img .modal-content{
+    /*width: 95%;*/
+    height: 95vh;
+    overflow: scroll;
+}
+
+
+.custom-img {
+    cursor: pointer;
+    max-height: 100px;
+    margin: 0 auto;
+    margin-bottom: 20px;
+    border: 1px solid #0000001c;
+    max-width: 100px;
+    min-height: 100px;
+    overflow: hidden;
+}
+
+.checked {
+    outline: 3px solid #1caf9a;
+}

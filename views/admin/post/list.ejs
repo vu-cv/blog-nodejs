@@ -74,9 +74,9 @@
 									<td><%= index+1 %></td>
 									<td><%= x.post_title %></td>
 									<td><%= x.post_author %></td>
-									<td><%= "..." %></td>
+									<td><%= x.post_category %></td>
 									<td><%= x.post_status %></td>
-									<td><%= x.post_date.toLocaleString(); %></td>
+									<td><%= x.create_at.toLocaleString(); %></td>
 									<td>
 										<a href="/admin/posts/<%= x._id %>/edit" class="btn btn-info btn-xs">Edit</a>
 										<a href="" class="btn btn-danger btn-xs">Delete</a>

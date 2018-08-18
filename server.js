@@ -143,9 +143,17 @@ io.on("connection", function(socket){
 
     //gửi cho  người gửi
     socket.on('send-name-category', data => {
-            var slug = require('slug');
-            var convert = slug(data);
-            socket.emit('server-category-slug', convert);
+        // console.log(data);
+        var slug = require('slug');
+        var convert = slug(data);
+        socket.emit('server-category-slug', convert);
+    });
+
+    socket.on('get-image-by-id', (id) => {
+        var MediaController = require('./controllers/admin/MediaController')
+        MediaController.getById(id).then(row => {
+            socket.emit('send-image-info', row);
+        })
     })
 });
 
