@@ -320,7 +320,7 @@ var FormValidation = function () {
 
         if ($('.wysihtml5').size() > 0) {
             $('.wysihtml5').wysihtml5({
-                "stylesheets": ["../../assets/global/plugins/bootstrap-wysihtml5/wysiwyg-color.css"]
+                "stylesheets": ["/admin/assets/global/plugins/bootstrap-wysihtml5/wysiwyg-color.css"]
             });
         }
     }

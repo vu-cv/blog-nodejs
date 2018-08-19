@@ -90,7 +90,7 @@ var Inbox = function () {
 
     var initWysihtml5 = function () {
         $('.inbox-wysihtml5').wysihtml5({
-            "stylesheets": ["../../assets/global/plugins/bootstrap-wysihtml5/wysiwyg-color.css"]
+            "stylesheets": ["/admin/assets/global/plugins/bootstrap-wysihtml5/wysiwyg-color.css"]
         });
     }
 

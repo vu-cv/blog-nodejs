@@ -1,4 +1,3 @@
-
 function AdministratorPermission (redirectUrl) {
     return function (req, res, next) {
         if (req.session.passport.user.roles === 0) {
