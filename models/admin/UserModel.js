@@ -57,10 +57,8 @@ var UsersAction = {
 			 }
 		});
 	},
-	update: (id, password, email, name_display, role, avatar) => UserModel.update({_id: id}, {
-		// user_login: username,
+	update: (id, password, name_display, role, avatar) => UserModel.update({_id: id}, {
 		user_pass: password,
-		user_email: email,
 		display_name: name_display,
 		roles: role,
 		image_url: avatar,

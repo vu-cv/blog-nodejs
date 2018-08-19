@@ -55,10 +55,10 @@
 							</div>
 							<div class="form-group">
 								<label class="control-label sr-only">Title</label>
-								<input value="<%= data.post_title%>" type="text" name="title" data-required="1" class="form-control" placeholder="Enter title here" />
+								<input value="<%= data.row.post_title%>" type="text" name="title" data-required="1" class="form-control" placeholder="Enter title here" />
 							</div>
 							<div class="form-group last">
-								<textarea class="wysihtml5 form-control" rows="20" name="content" data-error-container="#editor1_error"><%= data.post_content%></textarea>
+								<textarea class="wysihtml5 form-control" rows="20" name="content" data-error-container="#editor1_error"><%= data.row.post_content%></textarea>
 								<div id="editor1_error">
 								</div>
 							</div>							
@@ -72,22 +72,20 @@
 
 									<select class="form-control select2me sl-post-cat" name="category">
 										<option class="op-cat" value="0">Select category...</option>
-										<option class="op-cat" value="1">Option 1</option>
-										<option class="op-cat" value="2">Option 2</option>
-										<option class="op-cat" value="3">Option 3</option>
-										<option class="op-cat" value="4">Option 4</option>
+										<% data.cat.forEach(i => {%>
+										<option class="op-cat" value="<%= i._id%>"><%= i.name %></option>
+										<% }) %>
 									</select>
 									<script type="text/javascript">
 										var x = document.querySelectorAll(".op-cat");
 										// x[1].setAttribute('selected', 'true');
 										x.forEach((o, index) => {
-											if (x[index].value == "<%= data.post_category %>") {
+											if (x[index].value == "<%= data.row.post_category %>") {
 												x[index].setAttribute('selected', 'true');
 											}
 										})
 									</script>
 									<select class="form-control select2me" name="status">
-										<option class="op-status" value="0">Post status...</option>
 										<option class="op-status" value="publish">Publish</option>
 										<option class="op-status" value="hide">Hide</option>
 										<option class="op-status" value="pending">Pending</option>
@@ -108,22 +106,51 @@
 									<h3 class="panel-title">Featured Image</h3>
 								</div>
 								<div class="panel-body">
+									<img id="image-isset" src="<%= data.row.post_image %>" alt="" class="img-responsive">
 									<a id="set-featured-image" class="" data-toggle="modal" href='#modal-id'>Set featured image</a>
 									<div class="modal fade" id="modal-id">
-										<div class="modal-dialog">
+										<div class="modal-dialog" id="modal-set-img">
 											<div class="modal-content">
 												<div class="modal-header">
 													<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 													<h4 class="modal-title">Modal title</h4>
 												</div>
 												<div class="modal-body">
-													
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-													<button type="button" class="btn btn-primary">Save changes</button>
+													<div class="row">
+														<div class="col-sm-9">
+															<div class="row" id="list-img">
+																<% data.media.forEach(i => {%>
+																<div class="col-sm-2">
+																	<img id="<%= i._id %>" src="<%= i.path %>" alt="" class="custom-img img-responsive">
+																</div>
+																<% }) %>
+															</div>
+														</div>
+														<div class="col-sm-3">
+															<div class="athh">
+																ATTACHMENT DETAILS
+																<div class="row">
+																	<div class="col-sm-6">
+																		<img id="img-detail" alt="" class="img-responsive">
+																	</div>
+																	<div class="col-sm-6">
+																		<div id="filename"></div>
+																		<div id="uploaded"></div>
+																		<div id="filesize"></div>
+																		<div id="delete-attachment"></div>
+																	</div>
+																</div>
+																<div class="form-group">
+																	<label class="" for="">URL</label>
+																	<input type="email" class="form-control" id="image-url" placeholder="" disabled>
+																</div>
+																<button id="submitSet" data-dismiss="modal" type="button" class="btn btn-info">Set featured image</button>
+															</div>
+														</div>
+													</div>
 												</div>
 											</div>
+
 										</div>
 									</div>
 								</div>

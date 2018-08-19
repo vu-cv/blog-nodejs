@@ -60,7 +60,7 @@
 							</div>
 							<div class="form-group">
 								<label class="control-label ">Email</label>
-								<input type="email" name="email" data-required="1" class="form-control" placeholder="Email" value="<%= data.user_email %>" required />
+								<input type="email" name="email" data-required="1" class="form-control" placeholder="Email" value="<%= data.user_email %>" disabled required />
 							</div>
 							<div class="form-group">
 								<label class="control-label ">Display name</label>
@@ -79,9 +79,9 @@
 							<div class="form-group">
 								<label class="control-label ">Password</label>
 								<select name="roles" class="form-control" required>
-									<option value="1" <% if (data.roles == 1) { %><%="selected"%><%}%>>Administrator</option>
-									<option value="2" <% if (data.roles == 2) { %><%="selected"%><%}%>>Author</option>
-									<option value="3" <% if (data.roles == 3) { %><%="selected"%><%}%>>Customer</option>
+									<option value="0" <% if (data.roles == 0) { %><%="selected"%><%}%>>Administrator</option>
+									<option value="1" <% if (data.roles == 1) { %><%="selected"%><%}%>>Sub Admin</option>
+									<option value="2" <% if (data.roles == 2) { %><%="selected"%><%}%>>User</option>
 								</select>
 							</div>
 							<button type="submit" class="btn btn-success">Edit User</button>

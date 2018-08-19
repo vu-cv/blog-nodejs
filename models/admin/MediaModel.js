@@ -16,7 +16,6 @@ var MediaModelSchema = new Schema({
 	},
 	size: {
 		type: String, 
-		unique: true,
 		required: true
 	},
 	

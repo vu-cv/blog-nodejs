@@ -6,22 +6,18 @@ var Schema = mongoose.Schema;
 var PostModelSchema = new Schema({
 	post_author: {
 		type: String, 
-		unique: true,
 		required: true
 	},
 	post_title: {
 		type: String, 
-		unique: true,
 		required: true
 	},
 	post_content: {
 		type: String, 
-		unique: true,
 		required: true
 	},
 	post_status: {
 		type: String, 
-		unique: true,
 		required: true
 	},
 	post_slug: {
@@ -31,12 +27,10 @@ var PostModelSchema = new Schema({
 	},
 	post_image: {
 		type: String, 
-		unique: true,
 		required: true
 	},
 	post_category: {
 		type: String, 
-		unique: true,
 		required: true
 	},
 	create_at: {
@@ -68,12 +62,10 @@ var PostAction = {
 			 }
 		});
 	},
-	update: (id, title, content, author, status, slug, image, category) => PostModel.update({_id: id}, {
+	update: (id, title, content, status, image, category) => PostModel.update({_id: id}, {
 		post_title: title,
 			post_content: content,
-			post_author: author,
 			post_status: status,
-			post_slug: slug,
 			post_image: image,
 			post_category: category,
 	}).exec((err, result) => {

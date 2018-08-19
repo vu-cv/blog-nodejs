@@ -78,12 +78,33 @@
 									<td><%= x.post_status %></td>
 									<td><%= x.create_at.toLocaleString(); %></td>
 									<td>
-										<a href="/admin/posts/<%= x._id %>/edit" class="btn btn-info btn-xs">Edit</a>
-										<a href="" class="btn btn-danger btn-xs">Delete</a>
+										<a href="/admin/posts/<%= x._id %>/edit" class="btn btn-info btn-xs btnEdit">Edit</a>
+										<a onclick="return confirm('Are you delete?')" href="/admin/posts/<%= x._id %>/delete" class="btn btn-danger btn-xs btnDelete">Delete</a>
 									</td>
 								</tr>
 								<% }) %>
-							
+							<script type="text/javascript">
+									var x = document.getElementsByClassName('btnEdit')
+									for (var i = 0; i < x.length; i++) {
+										x[i].addEventListener('click', () => {
+											if (<%= userLogin.roles %> > 1) {
+												alert('Bạn không có quyền sửa !');
+												// return false;
+											}
+										});
+									}
+
+									var y = document.getElementsByClassName('btnDelete')
+									console.log(x.length);
+									for (var i = 0; i < y.length; i++) {
+										y[i].addEventListener('click', () => {
+											if (<%= userLogin.roles %> > 0) {
+												alert('Bạn không có quyền xóa !');
+												// return false;
+											}
+										});
+									}
+								</script>
 							</tbody>
 							</table>
 						</div>
