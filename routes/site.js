@@ -1,35 +1,30 @@
 var router = (app) => {
 	var PostController = require('../controllers/admin/PostController');
-
+	var UserController = require('../controllers/admin/UserController');
 
 	app.get('/', (req, res) => {
+
 		PostController.getAll().then(rows => {
-			// console.log(rows);
-			res.render('site/home', {data: {title: "Trang chủ", rows}});
+			PostController.getLimit().then(RecentPosts => {
+				UserController.getAll().then(users => {
+					res.render('site/home', {data: {title: "Trang chủ", rows, RecentPosts, users}});
+				});
+			});
 			rows.forEach(row => {
 				app.get('/' + row.post_slug, (req, res) => {
-					res.render('site/post-detail', {data: {title : row.post_title, row}});
-					// res.end(""+row.post_slug, {data: row});
+					PostController.getLimit().then(RecentPosts => {
+						res.render('site/post-detail', {data: {title : row.post_title, row, RecentPosts}});
+					})
 
 				})
 			});
 		});
 	})
 	app.get('/post-detail', (req, res) => {
+
 		res.render('site/post-detail', {data: {title: "Chi tiết bài viết"}});
 	});
-
-	//create breadcrum post detail;
-
-	// PostController.getAll().then(rows => {
-	// 	rows.forEach(row => {
-	// 		app.get('/' + row.post_slug, (req, res) => {
-	// 			res.render('site/post-detail', {data: {title : row.post_title, row}});
-	// 			// res.end(""+row.post_slug, {data: row});
-
-	// 		})
-	// 	});
-	// });
+	
 	//logout
 	app.get('/logout', (req, res) => {
 	    req.logout();

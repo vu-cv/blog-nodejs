@@ -38,12 +38,13 @@ router.post('/posts/add', (req, res) => {
 	// console.log(req.body);
 	var title = req.body.title;
 	var content = req.body.content;
+	var description = req.body.description;
 	var author = req.body.author;
 	var status = req.body.status;
 	var slug = req.body.slug;
 	var image = req.body.image_url;
 	var category = req.body.category;
-	PostController.addNew(title, content, author, status, slug, image, category);
+	PostController.addNew(title, content, description, author, status, slug, image, category);
 	res.writeHead(302, { 
 	  'Location': '/admin/posts'
 	});

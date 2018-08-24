@@ -16,6 +16,10 @@ var PostModelSchema = new Schema({
 		type: String, 
 		required: true
 	},
+	post_description: {
+		type: String, 
+	},
+
 	post_status: {
 		type: String, 
 		required: true
@@ -42,12 +46,18 @@ var PostModelSchema = new Schema({
 var PostModel = mongoose.model('posts', PostModelSchema);
 //create users model
 var PostAction = {
-	getAll: () => PostModel.find().exec(),
+	//sắp xếp giảm dần theo thời gian đăng bài
+	getAll: () => PostModel.find().sort({'create_at': -1}).exec(),
+
 	getById: id => PostModel.findById(id).exec(),
-	store: (title, content, author, status, slug, image, category) => {
+	
+	//get limit post
+	getLimit: (limitPost) => PostModel.find().sort({'create_at': -1}).limit(limitPost).exec(),
+	store: (title, content, description, author, status, slug, image, category) => {
 		PostModel.create({
 			post_title: title,
 			post_content: content,
+			post_description: description,
 			post_author: author,
 			post_status: status,
 			post_slug: slug,
@@ -62,9 +72,10 @@ var PostAction = {
 			 }
 		});
 	},
-	update: (id, title, content, status, image, category) => PostModel.update({_id: id}, {
+	update: (id, title, content, description, status, image, category) => PostModel.update({_id: id}, {
 		post_title: title,
 			post_content: content,
+			post_description: description,
 			post_status: status,
 			post_image: image,
 			post_category: category,

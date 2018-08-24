@@ -14,8 +14,8 @@
 			<div class="tabs nobottommargin clearfix" id="sidebar-tabs">
 
 				<ul class="tab-nav clearfix">
-					<li><a href="#tabs-1">Popular</a></li>
-					<li><a href="#tabs-2">Recent</a></li>
+					<li><a href="#tabs-1">Recent</a></li>
+					<li><a href="#tabs-2">Popular</a></li>
 					<li><a href="#tabs-3"><i class="icon-comments-alt norightmargin"></i></a></li>
 				</ul>
 
@@ -23,48 +23,25 @@
 
 					<div class="tab-content clearfix" id="tabs-1">
 						<div id="popular-post-list-sidebar">
-
+							<% data.RecentPosts.forEach(row => {%>
 							<div class="spost clearfix">
 								<div class="entry-image">
-									<a href="#" class="nobg"><img class="rounded-circle" src="site/images/magazine/small/3.jpg" alt=""></a>
+									<a href="/<%= row.post_slug %>" class="nobg"><img class="rounded-circle" src="<%= row.post_image %>" alt=""></a>
 								</div>
 								<div class="entry-c">
 									<div class="entry-title">
-										<h4><a href="#">Debitis nihil placeat, illum est nisi</a></h4>
+										<h4><a href="/<%= row.post_slug%>"><%= row.post_title %></a></h4>
 									</div>
 									<ul class="entry-meta">
 										<li><i class="icon-comments-alt"></i> 35 Comments</li>
 									</ul>
 								</div>
 							</div>
+							<% }) %>
 
-							<div class="spost clearfix">
-								<div class="entry-image">
-									<a href="#" class="nobg"><img class="rounded-circle" src="site/images/magazine/small/2.jpg" alt=""></a>
-								</div>
-								<div class="entry-c">
-									<div class="entry-title">
-										<h4><a href="#">Elit Assumenda vel amet dolorum quasi</a></h4>
-									</div>
-									<ul class="entry-meta">
-										<li><i class="icon-comments-alt"></i> 24 Comments</li>
-									</ul>
-								</div>
-							</div>
+							
 
-							<div class="spost clearfix">
-								<div class="entry-image">
-									<a href="#" class="nobg"><img class="rounded-circle" src="site/images/magazine/small/1.jpg" alt=""></a>
-								</div>
-								<div class="entry-c">
-									<div class="entry-title">
-										<h4><a href="#">Lorem ipsum dolor sit amet, consectetur</a></h4>
-									</div>
-									<ul class="entry-meta">
-										<li><i class="icon-comments-alt"></i> 19 Comments</li>
-									</ul>
-								</div>
-							</div>
+							
 
 						</div>
 					</div>
