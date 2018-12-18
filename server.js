@@ -39,7 +39,7 @@ dbc.connectToServer( function( err ) {
 
 
 var MongoClient = require('mongodb').MongoClient;
-var url = "mongodb://<dbuser>:<dbpassword>@ds247061.mlab.com:47061/blog";
+var url = "mongodb://chuvanvu:chuvanvu@ds247061.mlab.com:47061/blog";
 
 
 
